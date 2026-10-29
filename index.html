@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IQ test — intellektingizni sinang</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f2f5fa;--surface:#fff;--ink:#12203a;--muted:#5a6785;--line:#d6dded;--blue:#1d5fd1;--blue-ink:#fff;--gold:#e8a920;--ok:#17805a;--bad:#c2412d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a2e;--surface:#17253f;--ink:#e8eefb;--muted:#9aa8c7;--line:#2a3b5e;--blue:#5b92f5;--blue-ink:#0b1426;--gold:#f0b93a;--ok:#4fcf9f;--bad:#f08a76;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1a2e;--surface:#17253f;--ink:#e8eefb;--muted:#9aa8c7;--line:#2a3b5e;--blue:#5b92f5;--blue-ink:#0b1426;--gold:#f0b93a;--ok:#4fcf9f;--bad:#f08a76;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Onest,system-ui,sans-serif}
+h1,h2,h3{font-family:Unbounded,Onest,system-ui,sans-serif;font-weight:700;line-height:1.15;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font:700 20px Unbounded,sans-serif;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--gold)}
+.view{display:none;padding-bottom:56px}.view.on{display:block}
+.seq{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 8px}
+.tile{min-width:64px;height:64px;padding:0 14px;display:grid;place-items:center;background:var(--surface);border:2px solid var(--line);border-radius:14px;font:700 24px Unbounded,sans-serif}
+.tile.q{background:var(--gold);border-color:var(--gold);color:#241a00;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){.tile.q{animation:none}}
+.hero h1{font-size:clamp(30px,7vw,48px);letter-spacing:-.03em;margin-top:24px}
+.hero p{color:var(--muted);max-width:52ch}
+.btn{display:inline-block;border:0;border-radius:12px;background:var(--blue);color:var(--blue-ink);font:600 17px Onest,sans-serif;padding:15px 26px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:36px 0}
+.fact{padding:16px 18px;border:2px solid var(--line);border-radius:14px;background:var(--surface)}
+.fact b{display:block;font:700 22px Unbounded,sans-serif}
+.fact span{color:var(--muted);font-size:15px}
+.note{font-size:14.5px;color:var(--muted);border-left:4px solid var(--gold);padding:4px 14px;margin-top:28px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:24px}
+.pay-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--line);border-radius:12px;margin:10px 0;cursor:pointer}
+.pay-opt:has(input:checked){border-color:var(--blue)}
+.price{font:700 34px Unbounded,sans-serif;margin:8px 0 4px}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:10px 0 24px}
+.bar div{height:100%;background:var(--blue);width:0;transition:width .3s}
+.top{display:flex;justify-content:space-between;color:var(--muted);font-weight:500}
+#timer{font-variant-numeric:tabular-nums;color:var(--ink)}
+#timer.low{color:var(--bad)}
+.qtext{font:700 clamp(20px,4.5vw,26px)/1.3 Unbounded,sans-serif;margin:6px 0 20px}
+.opt{display:block;width:100%;text-align:left;font:500 18px Onest,sans-serif;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt.sel{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,var(--surface))}
+.score{font:700 clamp(56px,16vw,96px)/1 Unbounded,sans-serif;margin:10px 0}
+.score small{font-size:.35em;color:var(--muted)}
+.rev{padding:12px 0;border-top:1px solid var(--line);font-size:15.5px}
+.rev .ok{color:var(--ok);font-weight:600}.rev .no{color:var(--bad);font-weight:600}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+input[type=text]{width:100%;padding:13px 14px;font:17px Onest,sans-serif;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="logo">IQ<i>.</i>test</div><div id="who" style="color:var(--muted);font-size:15px"></div></header>
+
+<section class="view on hero" id="home">
+  <div class="seq" aria-label="Namuna savol: 2, 6, 18, 54, keyingi son qaysi?">
+    <div class="tile">2</div><div class="tile">6</div><div class="tile">18</div><div class="tile">54</div><div class="tile q">?</div>
+  </div>
+  <h1>IQ test: intellektingizni 25 daqiqada sinab ko‘ring</h1>
+  <p>Sonli qatorlar, mantiqiy xulosalar va o‘xshashlik savollari. Test oxirida IQ ballingiz hisoblanadi va har bir savolning yechimi tushuntiriladi.</p>
+  <div class="facts">
+    <div class="fact"><b>20</b><span>IQ savol</span></div>
+    <div class="fact"><b>25 daq.</b><span>umumiy vaqt</span></div>
+    <div class="fact"><b>IQ</b><span>taxminiy ball</span></div>
+  </div>
+  <button class="btn" id="goPay">Testni boshlash</button>
+  <p class="note">Bu IQ-uslubidagi onlayn test. Natijadagi IQ ball taxminiy bo‘lib, psixolog o‘tkazadigan rasmiy testning o‘rnini bosmaydi.</p>
+</section>
+
+<section class="view" id="pay">
+  <div class="card">
+    <h2 style="font-size:24px">To‘lov</h2>
+    <div class="price">15 000 so‘m</div>
+    <p style="color:var(--muted);margin:0 0 12px">To‘lov tasdiqlangach test darhol ochiladi.</p>
+    <label for="nm">Ismingiz</label>
+    <input type="text" id="nm" placeholder="Masalan, Aziza" autocomplete="given-name">
+    <label class="pay-opt"><input type="radio" name="p" checked> Payme</label>
+    <label class="pay-opt"><input type="radio" name="p"> Click</label>
+    <label class="pay-opt"><input type="radio" name="p"> Uzum Bank</label>
+    <div class="row"><button class="btn" id="paid">To‘lash</button><button class="btn ghost" id="back">Orqaga</button></div>
+    <p class="note">Demo rejim: haqiqiy pul yechilmaydi. Haqiqiy to‘lov uchun Payme/Click merchant ulanishi va server kerak.</p>
+  </div>
+</section>
+
+<section class="view" id="test">
+  <div class="top"><span id="cnt">Savol 1 / 10</span><span id="timer">25:00</span></div>
+  <div class="bar"><div id="prog"></div></div>
+  <div class="card">
+    <div class="qtext" id="qt"></div>
+    <div id="opts"></div>
+    <div class="row"><button class="btn ghost" id="prev">Oldingisi</button><button class="btn" id="next" disabled>Keyingisi</button></div>
+  </div>
+</section>
+
+<section class="view" id="result">
+  <div class="card">
+    <p style="margin:0;color:var(--muted)" id="rname"></p>
+    <div class="score"><span id="rs">0</span><small> IQ (taxminiy)</small></div>
+    <h2 id="rlvl" style="font-size:24px"></h2>
+    <p id="rtxt" style="color:var(--muted)"></p>
+    <div id="rev"></div>
+    <div class="row"><button class="btn" id="again">Bosh sahifa</button></div>
+    <p class="note">IQ ball savollarga to‘g‘ri javoblar soniga qarab taxminan hisoblangan (70–130 oralig‘ida) va faqat o‘z-o‘zini baholash uchun mo‘ljallangan.</p>
+  </div>
+</section>
+</div>
+
+<script>
+var Q=[
+{q:"Qatorni davom ettiring: 2, 6, 18, 54, ?",o:["108","148","162","216"],a:2,e:"Har bir son oldingisidan 3 marta katta: 54 × 3 = 162."},
+{q:"Qatorni davom ettiring: 3, 5, 9, 17, 33, ?",o:["49","57","65","66"],a:2,e:"Ayirma 2, 4, 8, 16 bo‘lib ketadi, keyingisi 32: 33 + 32 = 65."},
+{q:"Barcha qushlar uchadi. Chumchuq — qush. Bundan nima kelib chiqadi?",o:["Chumchuq uchadi","Uchadigan hamma narsa qush","Chumchuq baliq","Hech narsa kelib chiqmaydi"],a:0,e:"Umumiy qoidadan xususiy holga o‘tamiz: chumchuq qush bo‘lgani uchun uchadi."},
+{q:"Kitob : o‘qish = qo‘shiq : ?",o:["yozish","tinglash","chizish","pishirish"],a:1,e:"Kitob o‘qiladi, qo‘shiq tinglanadi. Bu «narsa : u bilan asosiy amal» munosabati."},
+{q:"5 ta stanok 5 ta detalni 5 daqiqada tayyorlaydi. 100 ta stanok 100 ta detalni necha daqiqada tayyorlaydi?",o:["1","5","20","100"],a:1,e:"Bitta stanok bitta detalni 5 daqiqada qiladi. Stanok ko‘paysa, detal ham shuncha ko‘payadi, vaqt o‘zgarmaydi."},
+{q:"Qaysi son ortiqcha: 8, 27, 64, 100, 125?",o:["8","27","100","125"],a:2,e:"Qolganlari to‘liq kublar (2³, 3³, 4³, 5³), 100 esa kub emas."},
+{q:"Ali Validan baland, Vali Sherzoddan baland. Kim eng past?",o:["Ali","Vali","Sherzod","Aniqlab bo‘lmaydi"],a:2,e:"Ali > Vali > Sherzod, demak eng pasti Sherzod."},
+{q:"Qatorni davom ettiring: 1, 4, 9, 16, 25, ?",o:["30","32","36","49"],a:2,e:"Bu ketma-ket sonlarning kvadratlari: 6² = 36."},
+{q:"Soat 3:15 da soat va minut mili orasidagi burchak necha gradus?",o:["0°","7,5°","15°","22,5°"],a:1,e:"Minut mili 90° da. Soat mili 3 dan 15 daqiqa o‘tib 90° + 7,5° da turadi. Farq 7,5°."},
+{q:"Daftar va qalam birgalikda 11 000 so‘m. Daftar qalamdan 10 000 so‘m qimmat. Qalam necha so‘m?",o:["500","1 000","1 500","10 000"],a:0,e:"Qalam 500, daftar 10 500: ayirma 10 000, yig‘indi 11 000."},
+{q:"Qatorni davom ettiring: 2, 3, 5, 8, 13, ?",o:["18","20","21","26"],a:2,e:"Har bir son oldingi ikkitasining yig‘indisi: 8 + 13 = 21."},
+{q:"Harflar qatorini davom ettiring: A, C, F, J, O, ?",o:["T","U","V","S"],a:1,e:"Alifbo bo‘yicha qadam 2, 3, 4, 5 bo‘lib o‘sadi, keyingisi 6: O dan 6 harf keyin U."},
+{q:"Barcha shoirlar tasavvurga boy. Ba’zi tasavvurga boy odamlar rassom. Qaysi xulosa albatta to‘g‘ri?",o:["Barcha shoirlar rassom","Ba’zi shoirlar rassom","Albatta to‘g‘ri xulosa yo‘q","Rassomlar shoir emas"],a:2,e:"Tasavvurga boy rassomlar shoirlar bo‘lishi ham, bo‘lmasligi ham mumkin, shuning uchun hech bir xulosa kafolatlanmagan."},
+{q:"4 ishchi devorni 6 kunda quradi. Xuddi shunday tezlikdagi 8 ishchi necha kunda quradi?",o:["2","3","4","12"],a:1,e:"Ishchilar ikki barobar ko‘p bo‘lsa, vaqt ikki barobar kam: 6 / 2 = 3."},
+{q:"Qatorni davom ettiring: 3, 6, 11, 18, 27, ?",o:["36","38","40","42"],a:1,e:"Ayirmalar 3, 5, 7, 9 bo‘lib toq sonlar bo‘yicha o‘sadi, keyingisi 11: 27 + 11 = 38."},
+{q:"Qatorni davom ettiring: 1, 2, 4, 7, 11, 16, ?",o:["21","22","23","24"],a:1,e:"Ayirmalar 1, 2, 3, 4, 5 bo‘lib ketadi, keyingisi 6: 16 + 6 = 22."},
+{q:"Qaysi so‘z boshqalardan farq qiladi: olma, nok, sabzi, behi?",o:["olma","nok","sabzi","behi"],a:2,e:"Olma, nok va behi mevalar, sabzi esa sabzavot."},
+{q:"Issiq : sovuq = baland : ?",o:["uzun","past","katta","keng"],a:1,e:"Bu qarama-qarshi ma’no munosabati: issiqning teskarisi sovuq, balandning teskarisi past."},
+{q:"Bir sonni 3 ga ko‘paytirib, natijaga 4 qo‘shsak, 25 chiqadi. Bu qaysi son?",o:["6","7","8","9"],a:1,e:"Teskari tartibda yechamiz: 25 − 4 = 21, 21 / 3 = 7."},
+{q:"Qatorni davom ettiring: 100, 91, 83, 76, 70, ?",o:["64","65","66","67"],a:1,e:"Ayirmalar 9, 8, 7, 6 kamayib boradi, keyingisi 5: 70 − 5 = 65."}
+];
+var LV=[[0,"Boshlang‘ich daraja","Mantiqiy masalalarda hali mashq kerak. Ketma-ketliklar va shartli mulohazalarni ko‘proq yeching."],
+[4,"O‘rta daraja","Asosiy mantiqiy qonuniyatlarni tushunasiz. Murakkabroq masalalarda ehtiyotkorroq bo‘ling."],
+[7,"Yuqori daraja","Mantiqiy fikrlashingiz yaxshi rivojlangan. Faqat bir-ikki joyda xato qilgansiz."],
+[9,"Juda yuqori daraja","Deyarli xatosiz yechdingiz. Zo‘r natija!"]];
+var tg=window.Telegram&&window.Telegram.WebApp;
+if(tg){tg.ready();tg.expand();if(tg.colorScheme)document.documentElement.setAttribute("data-theme",tg.colorScheme);}
+var $=function(i){return document.getElementById(i)};
+var cur=0,ans=[],left=1500,tm=null,name="";
+function show(id){["home","pay","test","result"].forEach(function(v){$(v).classList.toggle("on",v===id)});window.scrollTo(0,0)}
+function mmss(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function render(){
+  var q=Q[cur];
+  $("cnt").textContent="Savol "+(cur+1)+" / "+Q.length;
+  $("prog").style.width=((cur)/Q.length*100)+"%";
+  $("qt").textContent=q.q;
+  var h=$("opts");h.innerHTML="";
+  q.o.forEach(function(t,i){
+    var b=document.createElement("button");b.className="opt"+(ans[cur]===i?" sel":"");b.textContent=t;
+    b.onclick=function(){ans[cur]=i;render()};h.appendChild(b);
+  });
+  $("prev").disabled=cur===0;
+  $("next").disabled=ans[cur]===undefined;
+  $("next").textContent=cur===Q.length-1?"Yakunlash":"Keyingisi";
+}
+function start(){
+  cur=0;ans=[];left=1500;$("timer").textContent=mmss(left);$("timer").className="";
+  show("test");render();clearInterval(tm);
+  tm=setInterval(function(){left--;$("timer").textContent=mmss(left);
+    if(left<=60)$("timer").className="low";
+    if(left<=0){finish()}},1000);
+}
+function finish(){
+  clearInterval(tm);
+  var sc=0,rev="";
+  Q.forEach(function(q,i){
+    var ok=ans[i]===q.a;if(ok)sc++;
+    rev+='<div class="rev"><b>'+(i+1)+'. '+q.q.replace(/</g,"&lt;")+'</b><br>'+
+    (ok?'<span class="ok">To‘g‘ri:</span> ':'<span class="no">'+(ans[i]===undefined?'Javob berilmadi.':'Noto‘g‘ri.')+'</span> To‘g‘ri javob: ')+
+    q.o[q.a].replace(/</g,"&lt;")+'. '+q.e+'</div>';
+  });
+  var iq=Math.round(70+sc/Q.length*60),l=iq<85?["","O‘rtadan past daraja","Mashq bilan natijani yaxshilash mumkin."]:iq<100?["","O‘rtacha daraja","Asosiy mantiqiy qonuniyatlarni tushunasiz."]:iq<115?["","O‘rtadan yuqori daraja","Mantiqiy fikrlashingiz yaxshi rivojlangan."]:iq<130?["","Yuqori daraja","Murakkab qonuniyatlarni ham topa olasiz."]:["","Juda yuqori daraja","Deyarli xatosiz yechdingiz."];
+  $("rname").textContent=(name?name+", sizning natijangiz":"Sizning natijangiz");
+  $("rs").textContent=iq;$("rlvl").textContent=l[1];$("rtxt").textContent=l[2]+" To‘g‘ri javoblar: "+sc+" / "+Q.length+".";$("rev").innerHTML=rev;
+  show("result");
+}
+$("goPay").onclick=function(){var u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;name=u?u.first_name:"";$("who").textContent=name;start()};
+$("back").onclick=function(){show("home")};
+$("paid").onclick=function(){
+  name=$("nm").value.trim();
+  $("paid").disabled=true;$("paid").textContent="Tekshirilmoqda...";
+  setTimeout(function(){$("paid").disabled=false;$("paid").textContent="To‘lash";$("who").textContent=name;start()},900);
+};
+$("next").onclick=function(){if(cur<Q.length-1){cur++;render()}else finish()};
+$("prev").onclick=function(){if(cur>0){cur--;render()}};
+$("again").onclick=function(){show("home")};
+</script>
+</body>
+</html>
